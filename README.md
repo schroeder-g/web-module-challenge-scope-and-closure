@@ -42,13 +42,14 @@ Find the file `index.js` and complete the tasks.
 Edit the `ReadMe` file with your answers.
 
 1. In your own words, define closure (1-2 sentences).
+Closure is the way that functions and variables traverse scope. In essence it says that you can reach 'out' into broader scope to access variable names and functions, but never 'in' to do so.
 2. Study the following code, then answer the questions below.
 
 ```js
 function personalDice(name){
   return function(){
       // generate random number between 1 and 6
-    const newRoll = Math.floor(Math.random() * 6);
+    const newRoll = Math.ceil(Math.random() * 6);
     console.log(`${name} rolled a ${newRoll}`)
   }
 }
@@ -63,8 +64,11 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+Closure is being used in the anonymous function with the newRoll constant. Each time personalDice is called, newRoll will be reset, operating independently of previous calls.
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
+The format of the console.log() statement, and the logic that defines newRoll is always the same. With the Math.random invocation, though, the resulting value of new roll could always change (to a number between 1 and 6).
 c. What is the lexical scope of `newRoll`? 
+The lexical scope of newRoll is everything in the anonymous function, its parent, and the global scope. 
 
 ### Task 2c - Exit Ticket
 
