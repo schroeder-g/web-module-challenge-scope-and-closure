@@ -107,20 +107,31 @@ Final Score: 6 - 10 */
 
 function scoreboard(funct, num) {
   let score = {"Home": 0, "Away": 0};
+  gameReport = [];
   for (i=0;i<num; i++){
     score.Home += funct();
     score.Away += funct();
     if (i === 0){
-      console.log(`${i+1}st inning: ${score.Home} - ${score.Away}`)
+      gameReport.push(`${i+1}st inning: ${score.Home} - ${score.Away}`)
     }else if (i === 1){
-      console.log(`${i+1}nd inning: ${score.Home} - ${score.Away}`)
+      gameReport.push(`${i+1}nd inning: ${score.Home} - ${score.Away}`)
     }else if (i === 2){
-      console.log(`${i+1}rd inning: ${score.Home} - ${score.Away}`)
-    }else{
-      console.log(`${i+1}th inning: ${score.Home} - ${score.Away}`)
+      gameReport.push(`${i+1}rd inning: ${score.Home} - ${score.Away}`)
+    }else if(i>2 && i<8){
+      gameReport.push(`${i+1}th inning: ${score.Home} - ${score.Away}`)
+    }
+    else if(i === num-1 && score.Home === score.Away){
+      gameReport.push(`We got a tied ball game at  ${score.Home} - ${score.Away}. Looks like we need an other inning, folks!`);
+      score.Home += funct();
+      score.Away += funct();
+    }
+    else{
+      gameReport.push(`${i+1}th inning: ${score.Home} - ${score.Away}`)
+
     }
   }
-  return `Final Score: ${score.Home} - ${score.Away}`
+  gameReport.push(`Final Score: ${score.Home} - ${score.Away}`)
+  return gameReport
 }
 
 
