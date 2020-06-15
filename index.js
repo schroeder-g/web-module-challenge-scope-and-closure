@@ -27,14 +27,14 @@ function processFirstItem(stringList, callback) {
  * Study the code for counter1 and counter2. Answer the questions below.
  * 
  * 1. What is the difference between counter1 and counter2?
- * 
+ *    The difference is the scope of the count variable.
  * 2. Which of the two uses a closure? How can you tell?
- * 
+ *    counter1 Uses closure, because it gives its nested function access to a variable in the parent scope.
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
- *
+ *    counter1 is preferable if you want to reset count to zero every time counterMaker is being invoked. counter2 could be useful if you want to keep track of the count over multiple invocations of the function.
 */
 
-// counter1 code
+//counter1 code
 function counterMaker() {
   let count = 0;
   return function counter() {
@@ -56,11 +56,10 @@ function counter2() {
 
 Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
-
-}
+function inning(){
+ let score = Math.floor(Math.random()*3);
+  return score
+};
 
 /* Task 3: finalScore()
 
@@ -76,11 +75,14 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
-
-  /*Code Here*/
-
-}
+function finalScore(funct, num){
+  let final = {"Home": 0, "Away": 0};
+  for (i=0;i<num; i++){
+    final.Home += funct();
+    final.Away += funct();
+  }
+  return final
+};
 
 /* Task 4: 
 
@@ -103,8 +105,33 @@ and returns the score at each pont in the game, like so:
 
 Final Score: 6 - 10 */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(funct, num) {
+  let score = {"Home": 0, "Away": 0};
+  gameReport = [];
+  for (i=0;i<num; i++){
+    score.Home += funct();
+    score.Away += funct();
+    if (i === 0){
+      gameReport.push(`${i+1}st inning: ${score.Home} - ${score.Away}`)
+    }else if (i === 1){
+      gameReport.push(`${i+1}nd inning: ${score.Home} - ${score.Away}`)
+    }else if (i === 2){
+      gameReport.push(`${i+1}rd inning: ${score.Home} - ${score.Away}`)
+    }else if(i>2 && i<8){
+      gameReport.push(`${i+1}th inning: ${score.Home} - ${score.Away}`)
+    }
+    else if(i === num-1 && score.Home === score.Away){
+      gameReport.push(`We got a tied ball game at  ${score.Home} - ${score.Away}. Looks like we need an other inning, folks!`);
+      score.Home += funct();
+      score.Away += funct();
+    }
+    else{
+      gameReport.push(`${i+1}th inning: ${score.Home} - ${score.Away}`)
+
+    }
+  }
+  gameReport.push(`Final Score: ${score.Home} - ${score.Away}`)
+  return gameReport
 }
 
 
